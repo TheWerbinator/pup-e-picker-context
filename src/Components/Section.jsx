@@ -1,14 +1,19 @@
-//! Get rid of all props except 'children' and 'label'
+/* eslint-disable react/prop-types */
+import React from "react";
+import { useDogs } from "../providers/dog_provider";
+
 export const Section = ({
   label, // do not delete
   children, // do not delete
-  onClickFavorited,
-  onClickUnfavorited,
-  onClickCreateDog,
-  showComponent,
-  favoriteDogCount,
-  unfavoriteDogCount,
 }) => {
+  const {
+    showComponent,
+    onClickFavorited,
+    onClickUnfavorited,
+    onClickCreateDog,
+    favorited,
+    unfavorited }
+    = useDogs();
   return (
     <section>
       <div className="container-header">
@@ -19,9 +24,9 @@ export const Section = ({
             className={`selector ${
               showComponent === "favorite-dogs" && "active"
             }`}
-            onClick={onClickFavorited}
+            onClick={() => onClickFavorited()}
           >
-            favorited ( {favoriteDogCount} )
+            favorited ( {favorited.length} )
           </div>
 
           {/* This should display the unfavorited count */}
@@ -29,15 +34,15 @@ export const Section = ({
             className={`selector ${
               showComponent === "unfavorite-dogs" && "active"
             }`}
-            onClick={onClickUnfavorited}
+            onClick={() => onClickUnfavorited()}
           >
-            unfavorited ( {unfavoriteDogCount} )
+            unfavorited ( {unfavorited.length} )
           </div>
           <div
             className={`selector ${
               showComponent === "create-dog-form" && "active"
             }`}
-            onClick={onClickCreateDog}
+            onClick={() => onClickCreateDog()}
           >
             create dog
           </div>
